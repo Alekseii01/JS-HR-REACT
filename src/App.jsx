@@ -2,12 +2,17 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
+  const items = ["item1", "item2", "item3", "item4", "item5"]
+
   return (
-    <>
-      <div>
-        <h1>Hello, main!</h1>
-      </div>
-    </>
+    <div>
+      <p>List of items:</p>
+      <ul>
+        {items.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+    </div>
   )
 }
 

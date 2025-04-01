@@ -1,0 +1,45 @@
+:root {
+    --primary-btn-bg-color: #333030;
+    --primary-btn-text-color: white;
+     }
+
+    .tooltipWrapper {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+    
+    .tooltip {
+        position: absolute;
+        background: var(--primary-btn-bg-color);
+        color: var(--primary-btn-text-color);
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    .tooltip::before {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: var(--primary-btn-bg-color);
+        z-index: -1;
+        top: 50%;
+        right: 42%;
+        rotate: 45deg;
+    }
+
+    .tooltipWrapper:hover .tooltip {
+        opacity: 1;
+    }
+
+    .tooltip.top {
+        bottom: 120%;
+        left: 50%;
+        transform: translateX(-50%);
+    }

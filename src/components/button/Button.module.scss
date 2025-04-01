@@ -1,0 +1,50 @@
+:root {
+    --primary-btn-color: #35B8BE;
+    --primary-btn-text-color: white;
+    --secondary-btn-color: transparent;
+    --secondary-btn-text-color: black;
+    
+    padding: 0;
+    margin: 0;
+  }
+  
+  .button {
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    padding: 15px;
+  
+    &:focus {
+      outline: none;
+    }
+  
+    &:focus-visible {
+      outline: 2px solid #000;
+      outline-offset: 2px;
+    }
+  
+    &.primary {
+      background-color: var(--primary-btn-color);
+      color: var(--primary-btn-text-color);
+    }
+    
+    &.secondary {
+      background-color: var(--secondary-btn-color);
+      color: var(--secondary-btn-text-color);
+      border: 1px solid #61728333;
+      transition: background-color .2s ease-in-out;
+    }
+
+    &.secondary:hover {
+      background-color: var(--primary-btn-color);
+      color: var(--primary-btn-text-color);
+    }
+  
+    &.medium {
+        font-size: 15px;
+    }
+  
+    &.small {
+        font-size: 10px;
+    }
+  }

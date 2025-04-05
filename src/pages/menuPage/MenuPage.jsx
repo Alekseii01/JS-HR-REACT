@@ -1,10 +1,11 @@
-import { Button, ButtonMenu } from "../components/button/Button.jsx"
-import { Tooltip } from "../components/tooltip/Tooltip.jsx";
-import { OrderCards } from "../components/OrderCards.jsx";
+import { Button } from "../../components/button/Button.jsx"
+import { Tooltip } from "../../components/tooltip/Tooltip.jsx";
+import { OrderCards } from "../../components/OrderCards.jsx";
 
 function Menu() {
   return (
       <section class="main">
+          <div class="top-decoration"></div>
           <div class="main-wrapper">
               <div class="main-title">
                 <h1>Browse our menu</h1>
@@ -12,16 +13,14 @@ function Menu() {
               </div>
               <div class="main-menu-list">
                 <div class="button-wrapper menu">
-                  <>
-                    <ButtonMenu>Desert</ButtonMenu>
-                    <ButtonMenu>Dinner</ButtonMenu>
-                    <ButtonMenu>Breakfast</ButtonMenu>
-                  </>
+                    <Button variant="secondary" type="transparent">Desert</Button>
+                    <Button variant="secondary" type="transparent">Dinner</Button>
+                    <Button variant="secondary" type="transparent">Breakfast</Button>
                 </div>
               <div class="menu-wrapper">
-                <><OrderCards /></>
+                <OrderCards />
               </div>
-              <div class="button-load"><><Button>See more</Button></></div>
+              <div class="button-load"><Button type="regular">See more</Button></div>
               </div>
           </div>
       </section>

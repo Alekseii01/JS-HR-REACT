@@ -1,0 +1,130 @@
+.main-wrapper {
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 140px 0;
+}
+
+.main-title {
+  max-width: 470px;
+  margin: 0 auto;
+  text-align: center;
+
+  & h1 {
+    font-size: 3em;
+    color: #35B8BE;
+  }
+
+  & p {
+    letter-spacing: 0.36px;
+    color: #546285;
+    margin-top: 10px;
+  }
+}
+
+.main-menu-list {
+  padding: 40px 0;
+}
+
+.button-wrapper {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    
+    & button{
+    width: 100%;
+    max-width: 147px;
+  }
+}
+
+.button-load {
+  display: flex;
+  justify-content: center;
+
+  & button{
+    padding: 15px 30px;
+  }
+}
+
+.menu-wrapper {
+  padding: 40px 0;
+}
+
+.menu-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  & .menu-item {
+    display: flex;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #35B8BE26;
+    border-radius: 6px;
+    max-width: 580px;
+  }
+
+  & .menu-item-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    & h2 {
+      font-size: 1.2em;
+    }
+
+    & p {
+      letter-spacing: 0.36px;
+      color: #546285;
+      margin: 10px 0;
+      }
+    }
+
+    & span {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: #35B8BE;
+    }
+
+    & .menu-item-order {
+      display: flex;
+      max-height: 45px;
+      align-items: center;
+      gap: 8px;
+
+      & .counter {
+        display: flex;
+        padding: 8px 22px;
+        border: 1px solid #DDDDDD;
+        border-radius: 6px;
+        background-color: #FAFAFA;
+      }
+
+      & button {
+        max-height: 45px;
+        padding: 10px 20px;
+        align-items: center;
+        display: flex;
+      }
+    }
+  }
+
+ .menu-item-img {
+  padding: 10px 20px 10px 0;
+
+  & img {
+    max-width: 120px;
+    display: flex;
+  }
+}
+
+@media (max-width: 900px) {
+  .menu-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px;
+  }
+}

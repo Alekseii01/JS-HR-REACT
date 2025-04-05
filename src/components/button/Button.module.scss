@@ -47,4 +47,14 @@
     &.small {
         font-size: 10px;
     }
+
+    &.regular {
+      box-shadow: none;
+    }
+    
+    &.transparent {
+      background-color: transparent;
+      color: inherit;
+      border: 1px solid #35b8be;
+    }
   }

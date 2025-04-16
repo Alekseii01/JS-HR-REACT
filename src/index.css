@@ -1,35 +1,19 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  font-size: 1.5em;
+@import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,350,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import "./pages/menuPage/menuPage.css";
+@import "./components/header/header.css";
+@import "./components/footer/footer.css";
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  justify-content: center;
+  background-color: #F5FBFC;
 }
 
-p {
-  font-size: 1.8em;
+* {
+  font-family: Inter;
+  font-size: 1em;
+  line-height: 1.5;
+  font-weight: 400;
+  font-weight: 350;
   margin: 0;
-}
-
-ul, li {
-  list-style: none;
   padding: 0;
-  margin: 0;
 }

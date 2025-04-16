@@ -1,8 +1,17 @@
+import React, { useState } from "react";
 import { Button } from "../../components/button/Button.jsx"
 import { Tooltip } from "../../components/tooltip/Tooltip.jsx";
-import { OrderCards } from "../../components/OrderCards.jsx";
+import OrderCards from "../../components/OrderCards.jsx";
 
-function Menu() {
+function Menu({productList, addToCart}) {
+  const [rowCount, setRowCount] = useState(6);
+
+  const handleSeeMore = () => {
+    setRowCount((prevCount) => prevCount + 6);
+  }
+
+  const isButtonVisible = rowCount < productList.length;
+
   return (
       <section class="main">
           <div class="top-decoration"></div>
@@ -13,14 +22,16 @@ function Menu() {
               </div>
               <div class="main-menu-list">
                 <div class="button-wrapper menu">
-                    <Button variant="secondary" type="transparent">Desert</Button>
-                    <Button variant="secondary" type="transparent">Dinner</Button>
-                    <Button variant="secondary" type="transparent">Breakfast</Button>
+                    <Button variant="secondary">Dessert</Button>
+                    <Button variant="secondary">Dinner</Button>
+                    <Button variant="secondary">Breakfast</Button>
                 </div>
               <div class="menu-wrapper">
-                <OrderCards />
+                <OrderCards productList={productList.slice(0, rowCount)} addToCart={addToCart}/>
               </div>
-              <div class="button-load"><Button type="regular">See more</Button></div>
+                {isButtonVisible && (<div className="button-load"><Button onClick={handleSeeMore} type="regular">See more</Button>
+              </div>
+                )}
               </div>
           </div>
       </section>

@@ -31,7 +31,7 @@
     &.secondary {
       background-color: var(--secondary-btn-color);
       color: var(--secondary-btn-text-color);
-      border: 1px solid #61728333;
+      border: 1px solid #35b8be;
       transition: background-color .2s ease-in-out;
     }
 
@@ -46,15 +46,5 @@
   
     &.small {
         font-size: 10px;
-    }
-
-    &.regular {
-      box-shadow: none;
-    }
-    
-    &.transparent {
-      background-color: transparent;
-      color: inherit;
-      border: 1px solid #35b8be;
     }
   }

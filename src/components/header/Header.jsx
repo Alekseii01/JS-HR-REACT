@@ -7,12 +7,12 @@ import linksConfig from "../__mocks__/linksConfig.js";
 
 class Header extends Component {
   calculateTotalItems(cart) {
-    return cart.reduce((sum, item) => sum + item.quantity, 0);
+    return Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
   }
 
   render() {
     const { cart } = this.props;
-    const totalItems = this.calculateTotalItems(cart);
+    const totalQuantity = this.calculateTotalItems(cart);
 
     return (
       <header>
@@ -31,7 +31,7 @@ class Header extends Component {
                 <i className="fa-solid fa-cart-shopping"></i>
               </Button>
               <div className="cart-content">
-                <h2>{totalItems}</h2>
+                <h2>{totalQuantity}</h2>
               </div>
             </div>
           </div>

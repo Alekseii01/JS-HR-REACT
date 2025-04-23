@@ -4,11 +4,15 @@ import { Tooltip } from "../../components/tooltip/Tooltip.jsx";
 import OrderCards from "../../components/OrderCards.jsx";
 
 function Menu({productList, addToCart}) {
-  const [rowCount, setRowCount] = useState(6);
+  const INITIAL_ROW_COUNT = 6;
+  const [rowCount, setRowCount] = useState(INITIAL_ROW_COUNT);
+  
 
   const handleSeeMore = () => {
     setRowCount((prevCount) => prevCount + 6);
   }
+
+  const categories = [...new Set(productList.map(item => item.category))];
 
   const isButtonVisible = rowCount < productList.length;
 
@@ -22,9 +26,11 @@ function Menu({productList, addToCart}) {
               </div>
               <div class="main-menu-list">
                 <div class="button-wrapper menu">
-                    <Button variant="secondary">Dessert</Button>
-                    <Button variant="secondary">Dinner</Button>
-                    <Button variant="secondary">Breakfast</Button>
+                  {categories.map(category => (
+                  <Button key={category} variant="secondary">
+                    {category}
+                  </Button>
+                  ))}
                 </div>
               <div class="menu-wrapper">
                 <OrderCards productList={productList.slice(0, rowCount)} addToCart={addToCart}/>

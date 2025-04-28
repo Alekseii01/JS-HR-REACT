@@ -1,20 +1,30 @@
-import React, { useState } from "react";
-import { Button } from "../../components/button/Button.jsx"
+import React, { Component } from "react";
+import { Button } from "../../components/button/Button.jsx";
 import { Tooltip } from "../../components/tooltip/Tooltip.jsx";
 import OrderCards from "../../components/OrderCards.jsx";
 
-function Menu({productList, addToCart}) {
-  const INITIAL_ROW_COUNT = 6;
-  const [rowCount, setRowCount] = useState(INITIAL_ROW_COUNT);
-  
+class Menu extends Component {
+  INITIAL_ROW_COUNT = 6;
 
-  const handleSeeMore = () => {
-    setRowCount((prevCount) => prevCount + 6);
+  constructor(props) {
+    super(props);
+    this.state = {
+      rowCount: this.INITIAL_ROW_COUNT,
+    };
   }
 
-  const categories = [...new Set(productList.map(item => item.category))];
+  handleSeeMore = () => {
+    this.setState((prevState) => ({
+      rowCount: prevState.rowCount + 6,
+    }));
+  };
 
-  const isButtonVisible = rowCount < productList.length;
+  render() {
+    const { productList, addToCart } = this.props;
+    const { rowCount } = this.state;
+
+    const categories = [...new Set(productList.map((item) => item.category))];
+    const isButtonVisible = rowCount < productList.length;
 
   return (
       <section class="main">
@@ -35,13 +45,14 @@ function Menu({productList, addToCart}) {
               <div class="menu-wrapper">
                 <OrderCards productList={productList.slice(0, rowCount)} addToCart={addToCart}/>
               </div>
-                {isButtonVisible && (<div className="button-load"><Button onClick={handleSeeMore} type="regular">See more</Button>
+                {isButtonVisible && (<div className="button-load"><Button onClick={this.handleSeeMore} type="regular">See more</Button>
               </div>
                 )}
               </div>
           </div>
       </section>
-  );
+    );
+  }
 }
 
 export default Menu;

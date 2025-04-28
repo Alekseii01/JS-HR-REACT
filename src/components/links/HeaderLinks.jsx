@@ -1,19 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class HeaderLinks extends Component {
-  render() {
-    const { links } = this.props;
-
-    return (
-      <ul>
-        {links.map((link, index) => (
-          <li key={index}>
-            <a href={link.href}>{link.name}</a>
-          </li>
-        ))}
-      </ul>
-    );
-  }
-}
+const HeaderLinks = ({ links }) => {
+  return (
+    <ul>
+      {links.map((link, index) => (
+        <li key={index}>
+          <a href={link.href}>{link.name}</a>
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 export default HeaderLinks;

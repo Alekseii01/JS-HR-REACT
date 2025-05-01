@@ -1,29 +1,75 @@
-import React from "react";
+import React, { Component } from "react";
 import { Button } from "./button/Button";
+import { LoadingBar } from "./loadingBar/LoadingBar.jsx";
 
-import burgers from "./__mocks__/burgersData.js";
+class OrderCards extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quantities: {},
+    };
+  }
 
-export function OrderCards() {
-  return (
-    <div className="menu-cards">
-      {burgers.map((burger) => (
-        <div key={burger.id} className="menu-item">
-          <div className="menu-item-img">
-            <img src={burger.img} alt={burger.name} />
-          </div>
-          <div className="menu-item-content">
-            <h2>{burger.name}</h2>
-            <p>{burger.description}</p>
-            <span className="menu-item-price">${burger.price.toFixed(2)} USD</span>
-            <div className="menu-item-order">
-              <div className="counter">
-                <h3>1</h3>
-              </div>
-              <Button className="menu-item-bth">Add to cart</Button>
+  handleQuantityChange = (e, mealId) => {
+    const value = Math.max(1, parseInt(e.target.value));
+    this.setState((prevState) => ({
+      quantities: {
+        ...prevState.quantities,
+        [mealId]: value,
+      },
+    }));
+  };
+
+  render() {
+    const { productList, addToCart } = this.props;
+    const { quantities } = this.state;
+
+    const isLoading = productList.length === 0;
+    if (isLoading) {
+      return (
+        <div className="menu-cards-loading">
+          <LoadingBar />
+        </div>
+      );
+    }
+
+    return (
+      <div className="menu-cards">
+        {productList.map((meal) => (
+          <div key={meal.id} className="menu-item">
+            <div className="menu-item-img">
+              <img src={meal.img} alt={meal.meal} />
+            </div>
+            <div className="menu-item-content">
+              <h2>{meal.meal}</h2>
+              <p>
+                {meal.category} - {meal.area}
+              </p>
+              <span className="menu-item-price">
+                ${meal.price.toFixed(2)} USD
+              </span>
+              <div className="menu-item-order">
+                <div className="counter">
+                  <input
+                    type="number"
+                    min="1"
+                    value={quantities[meal.id] || 1}
+                    onChange={(e) => this.handleQuantityChange(e, meal.id)}
+                  />
+                </div>
+              <Button
+                className="menu-item-bth"
+                onClick={() => addToCart({ ...meal, quantity: quantities[meal.id] || 1 })}>
+                Add to cart
+              </Button>
             </div>
           </div>
         </div>
       ))}
     </div>
-  );
+    );
+  }
 }
+
+
+export default OrderCards;

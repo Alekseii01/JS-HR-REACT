@@ -1,8 +1,31 @@
-import { Button } from "../../components/button/Button.jsx"
+import React, { Component } from "react";
+import { Button } from "../../components/button/Button.jsx";
 import { Tooltip } from "../../components/tooltip/Tooltip.jsx";
-import { OrderCards } from "../../components/OrderCards.jsx";
+import OrderCards from "../../components/OrderCards.jsx";
 
-function Menu() {
+class Menu extends Component {
+  INITIAL_ROW_COUNT = 6;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      rowCount: this.INITIAL_ROW_COUNT,
+    };
+  }
+
+  handleSeeMore = () => {
+    this.setState((prevState) => ({
+      rowCount: prevState.rowCount + 6,
+    }));
+  };
+
+  render() {
+    const { productList, addToCart } = this.props;
+    const { rowCount } = this.state;
+
+    const categories = [...new Set(productList.map((item) => item.category))];
+    const isButtonVisible = rowCount < productList.length;
+
   return (
       <section class="main">
           <div class="top-decoration"></div>
@@ -13,18 +36,23 @@ function Menu() {
               </div>
               <div class="main-menu-list">
                 <div class="button-wrapper menu">
-                    <Button variant="secondary" type="transparent">Desert</Button>
-                    <Button variant="secondary" type="transparent">Dinner</Button>
-                    <Button variant="secondary" type="transparent">Breakfast</Button>
+                  {categories.map(category => (
+                  <Button key={category} variant="secondary">
+                    {category}
+                  </Button>
+                  ))}
                 </div>
               <div class="menu-wrapper">
-                <OrderCards />
+                <OrderCards productList={productList.slice(0, rowCount)} addToCart={addToCart}/>
               </div>
-              <div class="button-load"><Button type="regular">See more</Button></div>
+                {isButtonVisible && (<div className="button-load"><Button onClick={this.handleSeeMore} type="regular">See more</Button>
+              </div>
+                )}
               </div>
           </div>
       </section>
-  );
+    );
+  }
 }
 
 export default Menu;

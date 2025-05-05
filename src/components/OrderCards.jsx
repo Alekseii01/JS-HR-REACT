@@ -43,7 +43,7 @@ const OrderCards = ({ productList, addToCart }) => {
                   type="number"
                   min="1"
                   value={quantities[meal.id] || 1}
-                  onChange={(e) => this.handleQuantityChange(e, meal.id)}
+                  onChange={(e) => handleQuantityChange(e, meal.id)}
                 />
               </div>
             <Button

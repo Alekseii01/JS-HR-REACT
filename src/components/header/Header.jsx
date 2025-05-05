@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "../button/Button.jsx";
 import HeaderLinks from "../links/HeaderLinks.jsx";
 import Logo from "/public/logo.svg?react";
@@ -16,18 +17,20 @@ const Header = ({ cart }) => {
     <header>
       <div className="header-wrapper">
         <div className="logo">
-          <a href="/">
+          <Link to={"/"}>
             <Logo />
-          </a>
+          </Link>
         </div>
         <div className="nav-wrapper">
           <nav>
             <HeaderLinks links={linksConfig.headerLinks} />
           </nav>
           <div className="cart-block">
-            <Button type="regular">
-              <i className="fa-solid fa-cart-shopping"></i>
-            </Button>
+            <Link to="/cart">
+              <Button type="regular">
+                <i className="fa-solid fa-cart-shopping"></i>
+              </Button>
+            </Link>
             <div className="cart-content">
               <h2>{totalQuantity}</h2>
             </div>

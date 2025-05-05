@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Button } from "../../components/button/Button.jsx";
 import Tooltip from "../../components/tooltip/Tooltip.jsx";
 import OrderCards from "../../components/OrderCards.jsx";
+import "./menuPage.css";
 
-const Menu = ({ productList, addToCart }) => {
+const MenuPage = ({ productList, addToCart }) => {
   const INITIAL_ROW_COUNT = 6;
   const [rowCount, setRowCount] = useState(INITIAL_ROW_COUNT);
 
@@ -17,12 +18,12 @@ const Menu = ({ productList, addToCart }) => {
   return (
       <section class="main">
         <div class="top-decoration"></div>
-        <div class="main-wrapper">
-            <div class="main-title">
+        <div class="menu-wrapper">
+            <div class="menu-title">
               <h1>Browse our menu</h1>
               <p>Use our menu to place an order online, or <Tooltip text="+370 390-90-80"><span style={{ color: "#35B8BE" }}>phone</span></Tooltip> our store to place a pickup order. Fast and fresh food.</p>
             </div>
-            <div class="main-menu-list">
+            <div class="menu-list">
               <div class="button-wrapper menu">
                 {categories.map(category => (
                 <Button key={category} variant="secondary">
@@ -42,4 +43,4 @@ const Menu = ({ productList, addToCart }) => {
     );
   };
 
-export default Menu;
+export default MenuPage;

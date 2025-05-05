@@ -10,6 +10,7 @@ header {
     width: 99.5%;
     height: 220%;
     z-index: -1;
+    pointer-events: none;
   }
 
   & .header-wrapper {

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import Menu from "./pages/menuPage/MenuPage";
+import MenuPage from "./pages/menuPage/MenuPage";
+import HomePage from "./pages/homePage/homePage";
+import Page404 from "./pages/404Page/Page404";
 import { mealsApi } from "./components/api/mealsApi";
 
 const App = () => {
@@ -33,9 +36,18 @@ const App = () => {
 
   return (
     <>
+    <Router>
       <Header cart={cart} />
-      <Menu productList={productList} addToCart={addToCart} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/menu"
+          element={<MenuPage productList={productList} addToCart={addToCart} />}
+        />
+        <Route path="*" element={<Page404 />} />
+      </Routes>
       <Footer />
+    </Router>
     </>
   );
 };

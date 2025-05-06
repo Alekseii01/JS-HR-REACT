@@ -9,12 +9,16 @@ import { mealsApi } from "./components/api/mealsApi";
 
 const App = () => {
   const [productList, setProductList] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [cart, setCart] = useState({});
 
   useEffect(() => {
     const fetchProducts = async () => {
       const products = await mealsApi.getMeals();
-      setProductList(products);
+      setProductList(products);s
+
+      const uniqueCategories = [...new Set(products.map((item) => item.category))];
+      setCategories(uniqueCategories);
     };
 
     fetchProducts();
@@ -42,7 +46,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route
           path="/menu"
-          element={<MenuPage productList={productList} addToCart={addToCart} />}
+          element={<MenuPage productList={productList} categories={categories} addToCart={addToCart} />}
         />
         <Route path="*" element={<Page404 />} />
       </Routes>

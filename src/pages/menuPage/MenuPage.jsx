@@ -4,15 +4,16 @@ import Tooltip from "../../components/tooltip/Tooltip.jsx";
 import OrderCards from "../../components/OrderCards.jsx";
 import "./menuPage.css";
 
-const MenuPage = ({ productList, addToCart }) => {
+const MenuPage = ({ productList, categories, addToCart }) => {
   const INITIAL_ROW_COUNT = 6;
+  const NEXT_ROW_COUNT = 6;
+
   const [rowCount, setRowCount] = useState(INITIAL_ROW_COUNT);
 
   const handleSeeMore = () => {
-    setRowCount((prevRowCount) => prevRowCount + 6);
+    setRowCount((prevRowCount) => prevRowCount + NEXT_ROW_COUNT);
   };
 
-  const categories = [...new Set(productList.map((item) => item.category))];
   const isButtonVisible = rowCount < productList.length;
 
   return (
@@ -25,11 +26,11 @@ const MenuPage = ({ productList, addToCart }) => {
             </div>
             <div class="menu-list">
               <div class="button-wrapper menu">
-                {categories.map(category => (
+                    {categories.map((category) => (
                 <Button key={category} variant="secondary">
                   {category}
                 </Button>
-                ))}
+              ))}
               </div>
             <div class="menu-wrapper">
               <OrderCards productList={productList.slice(0, rowCount)} addToCart={addToCart}/>

@@ -1,15 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import style from "./Tooltip.module.scss";
 
-export class Tooltip extends Component {
-  render() {
-   const { children, text, position = "top" } = this.props;
+const Tooltip = ({ children, text, position = "top" }) => {
+  return (
+    <span className={style.tooltipWrapper}>
+      {children}
+      <span className={`${style.tooltip} ${style[position]}`}>{text}</span>
+    </span>
+  );
+};
 
-    return (
-      <span className={style.tooltipWrapper}>
-        {children}
-        <span className={`${style.tooltip} ${style[position]}`}>{text}</span>
-      </span>
-    );
-  }
-}
+export default Tooltip;

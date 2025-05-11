@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Button } from "../../components/button/Button.jsx";
 import Tooltip from "../../components/tooltip/Tooltip.jsx";
 import OrderCards from "../../components/OrderCards.jsx";
+import LoadingBar from "../../components/loadingBar/LoadingBar.jsx";
 import "./menuPage.css";
 
-const MenuPage = ({ productList, categories, addToCart }) => {
+const MenuPage = ({ productList, categories, addToCart, isLoading, error }) => {
   const INITIAL_ROW_COUNT = 6;
   const NEXT_ROW_COUNT = 6;
 
@@ -32,6 +33,16 @@ const MenuPage = ({ productList, categories, addToCart }) => {
                 </Button>
               ))}
               </div>
+              {isLoading && (
+                <div className="menu-cards-loading">
+                  <LoadingBar />
+                </div>
+              )}
+              {error && (
+                <div className="menu-cards-error">
+                  <p>{error}</p>
+                </div>
+              )}
             <div class="menu-wrapper">
               <OrderCards productList={productList?.slice(0, rowCount) || []} addToCart={addToCart}/>
             </div>

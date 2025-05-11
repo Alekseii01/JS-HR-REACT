@@ -12,7 +12,7 @@ const App = () => {
   const [categories, setCategories] = useState([]);
   const [cart, setCart] = useState({});
 
-  const { data: productList } = useFetch(mealsApi.getMeals);
+const { data: productList, loading, error } = useFetch(mealsApi.getMeals);
 
   useEffect(() => {
     if (productList) {
@@ -43,7 +43,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route
           path="/menu"
-          element={<MenuPage productList={productList} categories={categories} addToCart={addToCart} />}
+          element={<MenuPage productList={productList} categories={categories} addToCart={addToCart} isLoading={loading} error={error} />}
         />
         <Route path="*" element={<Page404 />} />
       </Routes>

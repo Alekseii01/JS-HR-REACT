@@ -6,23 +6,20 @@ import MenuPage from "./pages/menuPage/MenuPage";
 import HomePage from "./pages/homePage/homePage";
 import Page404 from "./pages/404Page/Page404";
 import { mealsApi } from "./components/api/mealsApi";
+import useFetch from "./components/hooks/useFetch";
 
 const App = () => {
-  const [productList, setProductList] = useState([]);
   const [categories, setCategories] = useState([]);
   const [cart, setCart] = useState({});
 
+  const { data: productList } = useFetch(mealsApi.getMeals);
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      const products = await mealsApi.getMeals();
-      setProductList(products);s
-
-      const uniqueCategories = [...new Set(products.map((item) => item.category))];
+    if (productList) {
+      const uniqueCategories = [...new Set(productList.map((item) => item.category))];
       setCategories(uniqueCategories);
-    };
-
-    fetchProducts();
-  }, []);
+    }
+  }, [productList]);
 
   const addToCart = (product) => {
     setCart((prevCart) => ({

@@ -14,7 +14,7 @@ const MenuPage = ({ productList, categories, addToCart }) => {
     setRowCount((prevRowCount) => prevRowCount + NEXT_ROW_COUNT);
   };
 
-  const isButtonVisible = rowCount < productList.length;
+  const isButtonVisible = productList && rowCount < productList.length;
 
   return (
       <section class="main">
@@ -33,7 +33,7 @@ const MenuPage = ({ productList, categories, addToCart }) => {
               ))}
               </div>
             <div class="menu-wrapper">
-              <OrderCards productList={productList.slice(0, rowCount)} addToCart={addToCart}/>
+              <OrderCards productList={productList?.slice(0, rowCount) || []} addToCart={addToCart}/>
             </div>
               {isButtonVisible && (<div className="button-load"><Button onClick={handleSeeMore} type="regular">See more</Button>
             </div>

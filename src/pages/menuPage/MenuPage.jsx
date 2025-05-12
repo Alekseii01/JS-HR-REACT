@@ -6,16 +6,28 @@ import LoadingBar from "../../components/loadingBar/LoadingBar.jsx";
 import "./menuPage.css";
 
 const MenuPage = ({ productList, categories, addToCart, isLoading, error }) => {
+  const INITIAL_CATEGORY = "All";
   const INITIAL_ROW_COUNT = 6;
   const NEXT_ROW_COUNT = 6;
 
   const [rowCount, setRowCount] = useState(INITIAL_ROW_COUNT);
+  const [selectedCategory, setSelectedCategory] = useState(INITIAL_CATEGORY);
 
   const handleSeeMore = () => {
     setRowCount((prevRowCount) => prevRowCount + NEXT_ROW_COUNT);
   };
 
-  const isButtonVisible = productList && rowCount < productList.length;
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setRowCount(INITIAL_ROW_COUNT);
+  };
+
+  const filteredProducts =
+    selectedCategory === INITIAL_CATEGORY
+      ? productList
+      : productList.filter((product) => product.category === selectedCategory);
+
+  const isButtonVisible = filteredProducts && rowCount < filteredProducts.length;
 
   return (
       <section class="main">
@@ -28,7 +40,11 @@ const MenuPage = ({ productList, categories, addToCart, isLoading, error }) => {
             <div class="menu-list">
               <div class="button-wrapper menu">
                     {categories.map((category) => (
-                <Button key={category} variant="secondary">
+                <Button
+                  key={category}
+                  variant={selectedCategory === category ? "primary" : "secondary"}
+                  onClick={() => handleCategorySelect(category)}
+                >
                   {category}
                 </Button>
               ))}
@@ -44,7 +60,10 @@ const MenuPage = ({ productList, categories, addToCart, isLoading, error }) => {
                 </div>
               )}
             <div class="menu-wrapper">
-              <OrderCards productList={productList?.slice(0, rowCount) || []} addToCart={addToCart}/>
+              <OrderCards
+                productList={filteredProducts?.slice(0, rowCount) || []}
+                addToCart={addToCart}
+              />
             </div>
               {isButtonVisible && (<div className="button-load"><Button onClick={handleSeeMore} type="regular">See more</Button>
             </div>

@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import Menu from "./pages/menuPage/MenuPage";
+import MenuPage from "./pages/menuPage/MenuPage";
+import HomePage from "./pages/homePage/homePage";
+import Page404 from "./pages/404Page/Page404";
 import { mealsApi } from "./components/api/mealsApi";
+import useFetch from "./components/hooks/useFetch";
 
 const App = () => {
-  const [productList, setProductList] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [cart, setCart] = useState({});
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const products = await mealsApi.getMeals();
-      setProductList(products);
-    };
+  const { data: productList, loading, error } = useFetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals');
 
-    fetchProducts();
-  }, []);
+  useEffect(() => {
+    if (productList) {
+      const uniqueCategories = [...new Set(productList.map((item) => item.category))];
+      setCategories(uniqueCategories);
+    }
+  }, [productList]);
 
   const addToCart = (product) => {
     setCart((prevCart) => ({
@@ -33,9 +37,18 @@ const App = () => {
 
   return (
     <>
+    <Router>
       <Header cart={cart} />
-      <Menu productList={productList} addToCart={addToCart} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/menu"
+          element={<MenuPage productList={productList} categories={categories} addToCart={addToCart} isLoading={loading} error={error} />}
+        />
+        <Route path="*" element={<Page404 />} />
+      </Routes>
       <Footer />
+    </Router>
     </>
   );
 };

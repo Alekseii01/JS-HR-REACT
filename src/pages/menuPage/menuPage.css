@@ -1,11 +1,11 @@
-.main-wrapper {
+.menu-wrapper {
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 140px 0;
 }
 
-.main-title {
+.menu-title {
   max-width: 470px;
   margin: 0 auto;
   text-align: center;
@@ -22,7 +22,7 @@
   }
 }
 
-.main-menu-list {
+.menu-list {
   position: relative;
   padding: 40px 0;
 }
@@ -70,6 +70,7 @@
     border: 1px solid #35B8BE26;
     border-radius: 6px;
     max-width: 580px;
+    width: 100%;
   }
 
   & .menu-item-content {

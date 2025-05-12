@@ -9,7 +9,7 @@ footer {
 
 .footer-content{
   display: flex;
-  padding-bottom: 100px;
+  padding: 100px 0;
 }
 
 .footer-description {

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button } from "./button/Button";
-import LoadingBar from "./loadingBar/LoadingBar.jsx";
 
 const OrderCards = ({ productList, addToCart }) => {
   const [quantities, setQuantities] = useState({});
@@ -12,15 +11,6 @@ const OrderCards = ({ productList, addToCart }) => {
       [mealId]: value,
     }));
   };
-
-  const isLoading = productList.length === 0;
-  if (isLoading) {
-    return (
-      <div className="menu-cards-loading">
-        <LoadingBar />
-      </div>
-    );
-  }
 
   return (
     <div className="menu-cards">
@@ -43,7 +33,7 @@ const OrderCards = ({ productList, addToCart }) => {
                   type="number"
                   min="1"
                   value={quantities[meal.id] || 1}
-                  onChange={(e) => this.handleQuantityChange(e, meal.id)}
+                  onChange={(e) => handleQuantityChange(e, meal.id)}
                 />
               </div>
             <Button

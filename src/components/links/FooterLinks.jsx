@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const FooterLinks = ({ title, links }) => {
   return (
@@ -6,7 +7,7 @@ const FooterLinks = ({ title, links }) => {
       <h3>{title}</h3>
       {links.map((link, index) => (
         <li key={index}>
-          <a href={link.href}>{link.name}</a>
+          <Link to={link.href}>{link.name}</Link>
         </li>
       ))}
     </ul>

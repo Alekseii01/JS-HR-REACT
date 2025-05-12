@@ -12,7 +12,7 @@ const App = () => {
   const [categories, setCategories] = useState([]);
   const [cart, setCart] = useState({});
 
-const { data: productList, loading, error } = useFetch(mealsApi.getMeals);
+  const { data: productList, loading, error } = useFetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals');
 
   useEffect(() => {
     if (productList) {

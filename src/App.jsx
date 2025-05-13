@@ -4,13 +4,17 @@ import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import MenuPage from "./pages/menuPage/MenuPage";
 import HomePage from "./pages/homePage/homePage";
+import LogInPage from "./pages/loginPage/LogInPage";
 import Page404 from "./pages/404Page/Page404";
-import { mealsApi } from "./components/api/mealsApi";
+import { auth } from "./components/api/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 import useFetch from "./components/hooks/useFetch";
 
 const App = () => {
   const [categories, setCategories] = useState([]);
   const [cart, setCart] = useState({});
+  const [user, setUser] = useState(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   const { data: productList, loading, error } = useFetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals');
 
@@ -20,6 +24,15 @@ const App = () => {
       setCategories(uniqueCategories);
     }
   }, [productList]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setIsAuthLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const addToCart = (product) => {
     setCart((prevCart) => ({
@@ -41,6 +54,10 @@ const App = () => {
       <Header cart={cart} />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route 
+          path="/login" 
+          element={<LogInPage user={user} isAuthLoading={isAuthLoading} />}  
+        />
         <Route
           path="/menu"
           element={<MenuPage productList={productList} categories={categories} addToCart={addToCart} isLoading={loading} error={error} />}

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import MenuPage from "./pages/menuPage/MenuPage";
-import HomePage from "./pages/homePage/homePage";
-import LogInPage from "./pages/loginPage/LogInPage";
-import Page404 from "./pages/404Page/Page404";
+import AppRoutes from "./routes/AppRoutes";
 import { auth } from "./components/api/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import useFetch from "./components/hooks/useFetch";
@@ -49,24 +46,19 @@ const App = () => {
   }, [cart]);
 
   return (
-    <>
     <Router>
       <Header cart={cart} />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route 
-          path="/login" 
-          element={<LogInPage user={user} isAuthLoading={isAuthLoading} />}  
-        />
-        <Route
-          path="/menu"
-          element={<MenuPage productList={productList} categories={categories} addToCart={addToCart} isLoading={loading} error={error} />}
-        />
-        <Route path="*" element={<Page404 />} />
-      </Routes>
+      <AppRoutes 
+        productList={productList}
+        categories={categories}
+        addToCart={addToCart}
+        loading={loading}
+        error={error}
+        user={user}
+        isAuthLoading={isAuthLoading}
+      />
       <Footer />
     </Router>
-    </>
   );
 };
 

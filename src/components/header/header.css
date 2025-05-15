@@ -62,11 +62,21 @@ header {
       padding: 0;
 
       & > li {
+        display: flex;
         padding: 10px 15px;
+        align-items: center;
 
         & a {
           text-decoration: none;
           color: #28224B;
+        }
+
+        & .LoadingBar {
+          width: 52px;
+          height: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }

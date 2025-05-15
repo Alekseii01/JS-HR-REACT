@@ -3,7 +3,6 @@ const linksConfig = {
     { name: "Home", href: "/" },
     { name: "Menu", href: "/menu" },
     { name: "Company", href: "/company" },
-    { name: "Login", href: "/login" },
   ],
   footerLinks: [
     {

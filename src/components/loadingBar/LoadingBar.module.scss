@@ -37,3 +37,29 @@
     transform: rotate(360deg);
   }
 }
+
+.loaderDots {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #35B8BE;
+  box-shadow: 20px 0 #35b7be7d, -20px 0 #35b7be7d;
+  position: relative;
+  animation: flash 0.5s ease-out infinite alternate;
+}
+
+@keyframes flash {
+  0% {
+    background-color: #35B8BE;
+    box-shadow: 20px 0 #35B8BE, -20px 0 #35b7be7d;
+  }
+  50% {
+    background-color: #35b7be7d;
+    box-shadow: 20px 0 #35B8BE, -20px 0 #35B8BE;
+  }
+  100% {
+    background-color: #35B8BE;
+    box-shadow: 20px 0 #35b7be7d, -20px 0 #35B8BE;
+  }
+}
+      

@@ -20,6 +20,15 @@ const LogInPage = ( {user, isAuthLoading } ) => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      alert("Logout successful!");
+    } catch (err) {
+      setError("Logout failed");
+    }
+  };
+
   if (isAuthLoading) {
     return (
         <div className="menu-cards-loading login-page">

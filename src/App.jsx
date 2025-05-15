@@ -47,7 +47,10 @@ const App = () => {
 
   return (
     <Router>
-      <Header cart={cart} />
+      <Header 
+        cart={cart} 
+        user={user} 
+        isAuthLoading={isAuthLoading} />
       <AppRoutes 
         productList={productList}
         categories={categories}

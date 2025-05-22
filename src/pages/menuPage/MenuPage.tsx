@@ -3,9 +3,16 @@ import { Button } from "../../components/button/Button";
 import Tooltip from "../../components/tooltip/Tooltip";
 import OrderCards from "../../components/OrderCards";
 import LoadingBar from "../../components/loadingBar/LoadingBar";
-import { Product } from "../../components/types/interface";
-import { MenuPageProps } from "../../components/types/interface";
+import { Product } from "../../components/types/Product";
 import "./menuPage.css";
+
+export interface MenuPageProps {
+  productList: Product[];
+  categories: string[];
+  addToCart: (product: Product & { quantity: number }) => void;
+  isLoading: boolean;
+  error?: string | null;
+}
 
 const MenuPage: React.FC<MenuPageProps> = ({ productList, categories, addToCart, isLoading, error, }) => {
   const INITIAL_CATEGORY = "All";

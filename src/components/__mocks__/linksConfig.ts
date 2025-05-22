@@ -1,4 +1,4 @@
-import { HeaderLink, FooterLinksProps } from "../types/interface";
+import { HeaderLink, FooterLinksProps } from "../types/Product";
 
 const linksConfig = {
   headerLinks: [

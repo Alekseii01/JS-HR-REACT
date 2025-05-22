@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
-import { FetchLog } from "../types/interface";
+
+export interface FetchLog {
+  url: string;
+  method: string;
+  payload: any;
+  status: number | string;
+  error?: string;
+  timestamp: string;
+}
 
 type FetchOptions = RequestInit;
 

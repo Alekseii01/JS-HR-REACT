@@ -4,7 +4,18 @@ import HomePage from '../pages/homePage/HomePage';
 import MenuPage from '../pages/menuPage/MenuPage';
 import LogInPage from '../pages/logInPage/LogInPage';
 import Page404 from '../pages/404Page/Page404';
-import { AppRoutesProps } from '../components/types/interface';
+import { User } from 'firebase/auth';
+import { Product } from '../components/types/Product';
+
+export interface AppRoutesProps {
+  productList: Product[] | null;
+  categories: string[];
+  addToCart: (product: Product & { quantity?: number }) => void;
+  loading: boolean;
+  error: string | null;
+  user: User | null;
+  isAuthLoading: boolean;
+}
 
 const AppRoutes: React.FC<AppRoutesProps> = ({ productList, categories, addToCart, loading, error, user, isAuthLoading }) => {
   return (

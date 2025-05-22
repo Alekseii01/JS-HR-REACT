@@ -6,7 +6,7 @@ import AppRoutes from "./routes/AppRoutes";
 import { auth } from "./components/api/firebaseConfig";
 import { onAuthStateChanged, User } from "firebase/auth";
 import useFetch from "./components/hooks/useFetch";
-import { Product, CartItem } from "./components/types/interface";
+import { Product, CartItem } from "./components/types/Product";
 
 const App: React.FC = () => {
   const [categories, setCategories] = useState<string[]>([]);

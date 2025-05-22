@@ -1,6 +1,11 @@
 import React, { ReactNode } from "react";
 import style from "./Tooltip.module.scss";
-import { TooltipProps } from "../types/interface";
+
+export interface TooltipProps {
+  children: ReactNode;
+  text: string;
+  position?: string;
+}
 
 const Tooltip: React.FC<TooltipProps> = ({ children, text, position = "top" }) => {
   return (

@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Button } from "./button/Button";
-import { OrderCardsProps } from './types/interface';
+import { Product } from "./types/Product";
+
+export interface OrderCardsProps {
+  productList: Product[];
+  addToCart: (product: Product & { quantity: number }) => void;
+}
 
 const OrderCards: React.FC<OrderCardsProps> = ({ productList, addToCart }) => {
   const [quantities, setQuantities] = useState<Record<string, number>>({});

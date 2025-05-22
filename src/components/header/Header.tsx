@@ -7,8 +7,24 @@ import LoadingBar from "../loadingBar/LoadingBar";
 import { auth } from "../api/firebaseConfig";
 import linksConfig from "../__mocks__/linksConfig.js";
 import { User } from "firebase/auth";
-import { CartItem } from "../types/interface";
-import { HeaderProps } from "../types/interface";
+import { CartItem } from "../types/Product";
+
+export interface HeaderLink {
+  name: string;
+  href: string;
+  authOnly?: boolean;
+}
+
+export interface HeaderLinksProps {
+  links: HeaderLink[];
+  user?: any;
+}
+
+export interface HeaderProps {
+  cart: Record<string, CartItem>;
+  user: User | null;
+  isAuthLoading: boolean;
+}
 
 const Header: React.FC<HeaderProps> = ({ cart, user, isAuthLoading }) => {
   const calculateTotalItems = (cart: Record<string, CartItem>) => {

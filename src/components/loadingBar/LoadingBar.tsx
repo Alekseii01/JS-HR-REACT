@@ -1,7 +1,11 @@
 import React from 'react';
 import style from './LoadingBar.module.scss';
 
-const LoadingBar = ({ variant = 'loaderSpinner' }) => {
+export interface LoadingBarProps {
+  variant?: string; 
+}
+
+const LoadingBar: React.FC<LoadingBarProps> = ({variant = 'loaderSpinner' }) => {
   return <div className={`${style[variant]}`}></div>;
 };
 

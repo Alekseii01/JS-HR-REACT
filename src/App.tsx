@@ -4,21 +4,28 @@ import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import AppRoutes from "./routes/AppRoutes";
 import { auth } from "./components/api/firebaseConfig";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, User } from "firebase/auth";
 import useFetch from "./components/hooks/useFetch";
+import { Product, CartItem } from "./components/types/Product";
 
-const App = () => {
-  const [categories, setCategories] = useState([]);
-  const [cart, setCart] = useState({});
-  const [user, setUser] = useState(null);
+const App: React.FC = () => {
+  const [categories, setCategories] = useState<string[]>([]);
+  const [cart, setCart] = useState<Record<string, CartItem>>({});
+  const [user, setUser] = useState<User | null>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
 
-  const { data: productList, loading, error } = useFetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals');
+  const {
+    data: productList,
+    loading,
+    error,
+  } = useFetch<Product[]>("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals");
 
   useEffect(() => {
-    if (productList) {
-      const uniqueCategories = [...new Set(productList.map((item) => item.category))];
-      setCategories(uniqueCategories);
+    if (Array.isArray(productList)) {
+      const uniqueCategories = [
+        ...new Set(productList.map((item: Product) => item.category)),
+      ];
+      setCategories(uniqueCategories as string[]);
     }
   }, [productList]);
 
@@ -31,12 +38,12 @@ const App = () => {
     return () => unsubscribe();
   }, []);
 
-  const addToCart = (product) => {
+  const addToCart = (product: Product) => {
     setCart((prevCart) => ({
       ...prevCart,
       [product.id]: {
         ...product,
-        quantity: (prevCart[product.id]?.quantity || 0) + (product.quantity || 1),
+        quantity: (prevCart[product.id]?.quantity || 0) + 1,
       },
     }));
   };
@@ -47,11 +54,8 @@ const App = () => {
 
   return (
     <Router>
-      <Header 
-        cart={cart} 
-        user={user} 
-        isAuthLoading={isAuthLoading} />
-      <AppRoutes 
+      <Header cart={cart} user={user} isAuthLoading={isAuthLoading} />
+      <AppRoutes
         productList={productList}
         categories={categories}
         addToCart={addToCart}

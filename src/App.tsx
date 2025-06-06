@@ -8,11 +8,18 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import useFetch from "./components/hooks/useFetch";
 import { Product, CartItem } from "./components/types/Product";
 
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "./store/store";
+import { addToCart as addToCartAction } from "./store/cartSlice";
+
 const App: React.FC = () => {
   const [categories, setCategories] = useState<string[]>([]);
-  const [cart, setCart] = useState<Record<string, CartItem>>({});
   const [user, setUser] = useState<User | null>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
+
+  const cart = useSelector((state: RootState) => state.cart.items);
+  const dispatch = useDispatch();
+
 
   const {
     data: productList,
@@ -39,13 +46,11 @@ const App: React.FC = () => {
   }, []);
 
   const addToCart = (product: Product) => {
-    setCart((prevCart) => ({
-      ...prevCart,
-      [product.id]: {
-        ...product,
-        quantity: (prevCart[product.id]?.quantity || 0) + 1,
-      },
-    }));
+    const cartItem: CartItem = {
+      ...product,
+      quantity: product.quantity ?? 1,
+    };
+    dispatch(addToCartAction(cartItem));
   };
 
   useEffect(() => {

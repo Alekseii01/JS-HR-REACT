@@ -10,6 +10,9 @@ export interface Product {
   [key: string]: any;
 }
 
-export type CartItem = {
+export interface CartItem {
+  id: string;
+  name: string;
+  price: number;
   quantity: number;
-};
+}

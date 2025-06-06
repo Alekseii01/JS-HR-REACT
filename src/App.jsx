@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import MenuPage from "./pages/menuPage/MenuPage";
-import HomePage from "./pages/homePage/homePage";
-import Page404 from "./pages/404Page/Page404";
-import { mealsApi } from "./components/api/mealsApi";
+import AppRoutes from "./routes/AppRoutes";
+import { auth } from "./components/api/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 import useFetch from "./components/hooks/useFetch";
 
 const App = () => {
   const [categories, setCategories] = useState([]);
   const [cart, setCart] = useState({});
+  const [user, setUser] = useState(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   const { data: productList, loading, error } = useFetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals');
 
@@ -20,6 +21,15 @@ const App = () => {
       setCategories(uniqueCategories);
     }
   }, [productList]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setIsAuthLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const addToCart = (product) => {
     setCart((prevCart) => ({
@@ -36,20 +46,22 @@ const App = () => {
   }, [cart]);
 
   return (
-    <>
     <Router>
-      <Header cart={cart} />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route
-          path="/menu"
-          element={<MenuPage productList={productList} categories={categories} addToCart={addToCart} isLoading={loading} error={error} />}
-        />
-        <Route path="*" element={<Page404 />} />
-      </Routes>
+      <Header 
+        cart={cart} 
+        user={user} 
+        isAuthLoading={isAuthLoading} />
+      <AppRoutes 
+        productList={productList}
+        categories={categories}
+        addToCart={addToCart}
+        loading={loading}
+        error={error}
+        user={user}
+        isAuthLoading={isAuthLoading}
+      />
       <Footer />
     </Router>
-    </>
   );
 };
 

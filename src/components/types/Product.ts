@@ -16,3 +16,19 @@ export interface CartItem {
   price: number;
   quantity: number;
 }
+
+export interface HeaderLink {
+  name: string;
+  href: string;
+  authOnly?: boolean;
+}
+
+export interface FooterLink {
+  name: string;
+  href: string;
+}
+
+export interface FooterLinksProps {
+  title: string;
+  links: FooterLink[];
+}

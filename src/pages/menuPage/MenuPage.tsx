@@ -1,38 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Button } from "../../components/button/Button";
 import Tooltip from "../../components/tooltip/Tooltip";
 import OrderCards from "../../components/OrderCards";
 import LoadingBar from "../../components/loadingBar/LoadingBar";
-import { Product } from "../../components/types/Product";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { setItems, setLoading, setError, setSelectedCategory } from "../../store/menuSlice";
+import { addItem } from "../../store/cartSlice";
+import { fetchProducts } from "../../services/api-products";
 import "./menuPage.css";
 
-export interface MenuPageProps {
-  productList: Product[];
-  categories: string[];
-  addToCart: (product: Product & { quantity: number }) => void;
-  isLoading: boolean;
-  error?: string | null;
-}
+const INITIAL_ROW_COUNT = 6;
+const NEXT_ROW_COUNT = 6;
 
-const MenuPage: React.FC<MenuPageProps> = ({ productList, categories, addToCart, isLoading, error, }) => {
-  const INITIAL_CATEGORY = "All";
-  const INITIAL_ROW_COUNT = 6;
-  const NEXT_ROW_COUNT = 6;
+const MenuPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { items: productList, loading: isLoading, error, selectedCategory } = useAppSelector((state) => state.menu);
 
-  const [rowCount, setRowCount] = useState(INITIAL_ROW_COUNT);
-  const [selectedCategory, setSelectedCategory] = useState(INITIAL_CATEGORY);
+  useEffect(() => {
+    dispatch(setLoading(true));
+    fetchProducts()
+      .then((data) => {
+        dispatch(setItems(data));
+      })
+      .catch((err) => {
+        dispatch(setError(err.message || "Ошибка загрузки"));
+      });
+  }, [dispatch]);
 
-  const handleSeeMore = () => {
-    setRowCount((prevRowCount) => prevRowCount + NEXT_ROW_COUNT);
-  };
+  const [rowCount, setRowCount] = React.useState(INITIAL_ROW_COUNT);
+
+  const categories = ["All", ...Array.from(new Set(productList.map((item) => item.category)))];
+
+  const handleSeeMore = () => setRowCount((prev) => prev + NEXT_ROW_COUNT);
 
   const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
+    dispatch(setSelectedCategory(category === "All" ? null : category));
     setRowCount(INITIAL_ROW_COUNT);
   };
 
+  const handleAddToCart = (product: any) => {
+    dispatch(addItem({ ...product, quantity: product.quantity ?? 1 }));
+  };
+
   const filteredProducts =
-    selectedCategory === INITIAL_CATEGORY
+    !selectedCategory
       ? productList
       : productList.filter((product) => product.category === selectedCategory);
 
@@ -57,7 +68,7 @@ const MenuPage: React.FC<MenuPageProps> = ({ productList, categories, addToCart,
             {categories.map((category) => (
               <Button
                 key={category}
-                variant={selectedCategory === category ? "primary" : "secondary"}
+                variant={selectedCategory === category || (!selectedCategory && category === "All") ? "primary" : "secondary"}
                 onClick={() => handleCategorySelect(category)}
               >
                 {category}
@@ -77,7 +88,7 @@ const MenuPage: React.FC<MenuPageProps> = ({ productList, categories, addToCart,
           <div className="menu-wrapper">
             <OrderCards
               productList={filteredProducts?.slice(0, rowCount) || []}
-              addToCart={addToCart}
+              addToCart={handleAddToCart}
             />
           </div>
           {isButtonVisible && (

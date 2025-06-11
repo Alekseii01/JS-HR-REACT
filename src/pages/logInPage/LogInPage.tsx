@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword, User } from "firebase/auth";
+import { useAppSelector } from "../../store/hooks";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../components/api/firebaseConfig";
 import LoadingBar from "../../components/loadingBar/LoadingBar";
 import { Button } from "../../components/button/Button";
 import "./loginPage.css";
 
-export interface LogInPageProps {
-  user: User | null;
-  isAuthLoading: boolean;
-}
+const LogInPage: React.FC = () => {
+  const user = useAppSelector((state) => state.auth.user);
+  const isAuthLoading = useAppSelector((state) => state.auth.loading);
 
-const LogInPage: React.FC<LogInPageProps> = ({ user, isAuthLoading }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

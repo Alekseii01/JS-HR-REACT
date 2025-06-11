@@ -1,15 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../button/Button.jsx";
-import HeaderLinks from "../links/HeaderLinks.jsx";
+import { Button } from "../button/Button";
+import HeaderLinks from "../links/HeaderLinks";
 import Logo from "/public/logo.svg?react";
 import LoadingBar from "../loadingBar/LoadingBar";
 import { auth } from "../api/firebaseConfig";
-
 import linksConfig from "../__mocks__/linksConfig.js";
+import { User } from "firebase/auth";
+import { CartItem } from "../types/Product";
 
-const Header = ({ cart, user, isAuthLoading }) => {
-  const calculateTotalItems = (cart) => {
+export interface HeaderLink {
+  name: string;
+  href: string;
+  authOnly?: boolean;
+}
+
+export interface HeaderLinksProps {
+  links: HeaderLink[];
+  user?: any;
+}
+
+export interface HeaderProps {
+  cart: Record<string, CartItem>;
+  user: User | null;
+  isAuthLoading: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({ cart, user, isAuthLoading }) => {
+  const calculateTotalItems = (cart: Record<string, CartItem>) => {
     return Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
   };
 
@@ -22,7 +40,7 @@ const Header = ({ cart, user, isAuthLoading }) => {
     } catch (err) {
       console.error("Logout failed", err);
     }
-  }
+  };
 
   return (
     <header>
@@ -37,19 +55,19 @@ const Header = ({ cart, user, isAuthLoading }) => {
             <ul>
               <HeaderLinks links={linksConfig.headerLinks} user={user} />
               <li>
-              {isAuthLoading ? (
-                    <div className="LoadingBar">
-                      <LoadingBar variant="loaderDots" />
-                    </div>
-                  ) : user ? (
-                    <Link onClick={handleLogout}>LogOut</Link>
-                  ) : (
-                    <Link to="/login">LogIn</Link>
-                  )}
+                {isAuthLoading ? (
+                  <div className="LoadingBar">
+                    <LoadingBar variant="loaderDots" />
+                  </div>
+                ) : user ? (
+                  <Link to="/" onClick={handleLogout}>LogOut</Link>
+                ) : (
+                  <Link to="/login">LogIn</Link>
+                )}
               </li>
             </ul>
           </nav>
-          <div className="cart-block">  
+          <div className="cart-block">
             <Link to="/cart">
               <Button type="regular">
                 <i className="fa-solid fa-cart-shopping"></i>

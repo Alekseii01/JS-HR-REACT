@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../../components/button/Button.jsx";
+import { Button } from "../../components/button/Button.js";
 import Trustpliot from "/public/trustpilot-logo.svg?react"
 import "./homePage.css";
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
     return (
         <section className="home-wrapper">
             <div className="home-page">

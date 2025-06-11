@@ -1,17 +1,18 @@
+import { HeaderLink, FooterLinksProps } from "../types/Product";
+
 const linksConfig = {
   headerLinks: [
     { name: "Home", href: "/" },
-    { name: "Menu", href: "/menu" },
+    { name: "Menu", href: "/menu", authOnly: true },
     { name: "Company", href: "/company" },
-  ],
+  ] as HeaderLink[],
   footerLinks: [
     {
       title: "Company",
       links: [
-        { name: "Home", href: "https://www.google.com/" },
-        { name: "Order", href: "https://www.google.com/" },
-        { name: "FAQ", href: "https://www.google.com/" },
-        { name: "Contact", href: "https://www.google.com/" },
+        { name: "About us", href: "/about" },
+        { name: "Team", href: "/team" },
+        { name: "Careers", href: "/careers" },
       ],
     },
     {
@@ -24,12 +25,14 @@ const linksConfig = {
       ],
     },
     {
-      title: "Flowbase",
+      title: "Support",
       links: [
-        { name: "More Cloneables", href: "https://www.google.com/" },
+        { name: "Help Center", href: "/help" },
+        { name: "Contact", href: "/contact" },
+        { name: "FAQ", href: "/faq" },
       ],
     },
-  ],
+  ] as FooterLinksProps[],
 };
 
 export default linksConfig;

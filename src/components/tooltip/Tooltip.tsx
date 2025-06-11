@@ -1,7 +1,13 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import style from "./Tooltip.module.scss";
 
-const Tooltip = ({ children, text, position = "top" }) => {
+export interface TooltipProps {
+  children: ReactNode;
+  text: string;
+  position?: string;
+}
+
+const Tooltip: React.FC<TooltipProps> = ({ children, text, position = "top" }) => {
   return (
     <span className={style.tooltipWrapper}>
       {children}

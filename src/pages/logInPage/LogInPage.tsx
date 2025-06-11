@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, User } from "firebase/auth";
 import { auth } from "../../components/api/firebaseConfig";
 import LoadingBar from "../../components/loadingBar/LoadingBar";
-import { Button } from "../../components/button/Button.jsx";
+import { Button } from "../../components/button/Button";
 import "./loginPage.css";
 
-const LogInPage = ( {user, isAuthLoading } ) => {
+export interface LogInPageProps {
+  user: User | null;
+  isAuthLoading: boolean;
+}
+
+const LogInPage: React.FC<LogInPageProps> = ({ user, isAuthLoading }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -31,10 +36,10 @@ const LogInPage = ( {user, isAuthLoading } ) => {
 
   if (isAuthLoading) {
     return (
-        <div className="menu-cards-loading login-page">
-            <LoadingBar />
-        </div>
-  );
+      <div className="menu-cards-loading login-page">
+        <LoadingBar />
+      </div>
+    );
   }
 
   return (
@@ -55,7 +60,7 @@ const LogInPage = ( {user, isAuthLoading } ) => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="test@gmail.com"
-                />
+              />
             </div>
             <div className="login-form-group">
               <label>Password:</label>
@@ -65,7 +70,7 @@ const LogInPage = ( {user, isAuthLoading } ) => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="********"
                 required
-                />
+              />
             </div>
             {error && <p>{error}</p>}
             <Button type="submit">

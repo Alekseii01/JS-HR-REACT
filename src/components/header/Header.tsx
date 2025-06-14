@@ -6,32 +6,14 @@ import Logo from "/public/logo.svg?react";
 import LoadingBar from "../loadingBar/LoadingBar";
 import { auth } from "../api/firebaseConfig";
 import linksConfig from "../__mocks__/linksConfig.js";
-import { User } from "firebase/auth";
-import { CartItem } from "../types/Product";
+import { useAppSelector } from "../../store/hooks";
 
-export interface HeaderLink {
-  name: string;
-  href: string;
-  authOnly?: boolean;
-}
+const Header: React.FC = () => {
+  const user = useAppSelector((state) => state.auth.user);
+  const isAuthLoading = useAppSelector((state) => state.auth.loading);
+  const cart = useAppSelector((state) => state.cart.items) || [];
 
-export interface HeaderLinksProps {
-  links: HeaderLink[];
-  user?: any;
-}
-
-export interface HeaderProps {
-  cart: Record<string, CartItem>;
-  user: User | null;
-  isAuthLoading: boolean;
-}
-
-const Header: React.FC<HeaderProps> = ({ cart, user, isAuthLoading }) => {
-  const calculateTotalItems = (cart: Record<string, CartItem>) => {
-    return Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
-  };
-
-  const totalQuantity = calculateTotalItems(cart);
+  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const handleLogout = async () => {
     try {

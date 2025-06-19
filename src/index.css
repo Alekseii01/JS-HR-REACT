@@ -17,3 +17,11 @@ body {
   margin: 0;
   padding: 0;
 }
+
+body.night header::before {
+  background: #2c3345 !important;
+}
+
+body.night footer::before {
+  background-image: none !important;
+}

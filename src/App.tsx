@@ -1,71 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { useAppDispatch } from "./store/hooks";
+import { auth } from "./components/api/firebaseConfig";
+import { setUser, setLoading } from "./store/authSlice";
+import { resetCart } from "./store/cartSlice";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import AppRoutes from "./routes/AppRoutes";
-import { auth } from "./components/api/firebaseConfig";
-import { onAuthStateChanged, User } from "firebase/auth";
-import useFetch from "./components/hooks/useFetch";
-import { Product, CartItem } from "./components/types/Product";
+import HomePage from "./pages/homePage/HomePage";
+import MenuPage from "./pages/menuPage/MenuPage";
+import LogInPage from "./pages/logInPage/LogInPage";
+import Page404 from "./pages/404Page/Page404";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 const App: React.FC = () => {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [cart, setCart] = useState<Record<string, CartItem>>({});
-  const [user, setUser] = useState<User | null>(null);
-  const [isAuthLoading, setIsAuthLoading] = useState(true);
-
-  const {
-    data: productList,
-    loading,
-    error,
-  } = useFetch<Product[]>("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals");
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (Array.isArray(productList)) {
-      const uniqueCategories = [
-        ...new Set(productList.map((item: Product) => item.category)),
-      ];
-      setCategories(uniqueCategories as string[]);
-    }
-  }, [productList]);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setIsAuthLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      dispatch(setUser(user));
+      dispatch(setLoading(false));
+      if (!user) {
+        dispatch(resetCart());
+      }
     });
-
     return () => unsubscribe();
-  }, []);
-
-  const addToCart = (product: Product) => {
-    setCart((prevCart) => ({
-      ...prevCart,
-      [product.id]: {
-        ...product,
-        quantity: (prevCart[product.id]?.quantity || 0) + 1,
-      },
-    }));
-  };
-
-  useEffect(() => {
-    console.log("Updated Cart:", cart); // TODO: Only for debugging, remove later
-  }, [cart]);
+  }, [dispatch]);
 
   return (
-    <Router>
-      <Header cart={cart} user={user} isAuthLoading={isAuthLoading} />
-      <AppRoutes
-        productList={productList}
-        categories={categories}
-        addToCart={addToCart}
-        loading={loading}
-        error={error}
-        user={user}
-        isAuthLoading={isAuthLoading}
-      />
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LogInPage />} />
+        <Route path="/menu" element={<ProtectedRoute element={<MenuPage />} />} />
+        <Route path="*" element={<Page404 />} />
+      </Routes>
       <Footer />
-    </Router>
+    </>
   );
 };
 

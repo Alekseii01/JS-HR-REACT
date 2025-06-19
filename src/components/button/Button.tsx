@@ -9,6 +9,7 @@ export interface ButtonProps {
   size?: string;
   type?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export const Button: React.FC<ButtonProps> = ({ children, onClick, variant = 'primary', size = 'medium' }) => {

@@ -10,6 +10,7 @@ import Footer from "./components/footer/Footer";
 import HomePage from "./pages/homePage/HomePage";
 import MenuPage from "./pages/menuPage/MenuPage";
 import LogInPage from "./pages/logInPage/LogInPage";
+import OrderPage from "./pages/orderPage/OrderPage";
 import Page404 from "./pages/404Page/Page404";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -34,6 +35,7 @@ const App: React.FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LogInPage />} />
         <Route path="/menu" element={<ProtectedRoute element={<MenuPage />} />} />
+        <Route path="/cart" element={<ProtectedRoute element={<OrderPage />} />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
       <Footer />

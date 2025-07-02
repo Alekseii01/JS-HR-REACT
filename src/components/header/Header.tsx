@@ -6,6 +6,7 @@ import Logo from "/public/logo.svg?react";
 import LoadingBar from "../loadingBar/LoadingBar";
 import { auth } from "../api/firebaseConfig";
 import linksConfig from "../__mocks__/linksConfig.js";
+import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import { useAppSelector } from "../../store/hooks";
 
 const Header: React.FC = () => {
@@ -60,6 +61,7 @@ const Header: React.FC = () => {
             </div>
           </div>
         </div>
+        <ThemeSwitcher />
       </div>
     </header>
   );

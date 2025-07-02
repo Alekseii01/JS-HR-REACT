@@ -1,0 +1,32 @@
+body.night {
+  background: #181c24 !important;
+  color: #e0e6f0 !important;
+  transition: background 0.3s, color 0.3s;
+}
+body.night header,
+body.night nav,
+body.night .card,
+body.night .panel,
+body.night .menu-item,
+body.night .home-wrapper,
+body.night .footer {
+  background: #232a36 !important;
+  color: #e0e6f0 !important;
+}
+body.night a { color: #8ab4f8 !important; }
+body.night .counter {
+  background: #2c3345 !important;
+  color: #e0e6f0 !important;
+  border: 1px solid #3a4458 !important;
+}
+body.night button,
+body.night input,
+body.night textarea {
+  background: #2c3345 !important;
+  color: #e0e6f0 !important;
+  border: 1px solid #3a4458 !important;
+}
+body.night .footer::before {
+  background: #2c3345 !important;
+  background-image: none !important;
+}

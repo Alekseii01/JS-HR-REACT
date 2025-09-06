@@ -8,6 +8,8 @@ import { auth } from "../api/firebaseConfig";
 import linksConfig from "../__mocks__/linksConfig.js";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import { useAppSelector } from "../../store/hooks";
+import { FaShoppingCart } from "react-icons/fa";
+import BurgerMenu from "../BurgerMenu/BurgerMenu";
 
 const Header: React.FC = () => {
   const user = useAppSelector((state) => state.auth.user);
@@ -45,15 +47,16 @@ const Header: React.FC = () => {
                 ) : user ? (
                   <Link to="/" onClick={handleLogout}>LogOut</Link>
                 ) : (
-                  <Link to="/login">LogIn</Link>
+                  <Link to="/login">Sign In</Link>
                 )}
               </li>
             </ul>
           </nav>
+          
           <div className="cart-block">
             <Link to="/cart">
               <Button type="regular">
-                <i className="fa-solid fa-cart-shopping"></i>
+                <FaShoppingCart />
               </Button>
             </Link>
             <div className="cart-content">
@@ -62,6 +65,8 @@ const Header: React.FC = () => {
           </div>
         </div>
         <ThemeSwitcher />
+        
+        <BurgerMenu handleLogout={handleLogout} />
       </div>
     </header>
   );

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../../components/button/Button";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { removeItem, updateQuantity, clearCart } from "../../store/cartSlice";
+import { CiTrash } from "react-icons/ci";
 import "./orderPage.css";
 
 const OrderPage: React.FC = () => {
@@ -19,45 +20,45 @@ const OrderPage: React.FC = () => {
     };
     
     const handleClearCart = () => {
-        if (window.confirm('Are you sure you want to clear your cart?')) {
+        if (window.confirm("Are you sure you want to clear your cart?")) {
             dispatch(clearCart());
         }
     };
 
     if (cart.length === 0) {
         return (
-            <div className="order-page empty-cart">
+            <section className="order-page empty-cart">
                 <h2>Your cart is empty</h2>
                 <p>Looks like you haven't added any items to your cart yet.</p>
                 <Link to="/menu">
                     <Button>Browse Menu</Button>
                 </Link>
-            </div>
+            </section>
         );
     }
 
     return (
-        <div className="order-page">
+        <section className="order-page">
             <h1>Your Order</h1>
             
             <div className="order-items">
                 <div className="cart-header">
-                    <div className="cart-header-item">Item</div>
-                    <div className="cart-header-price">Price</div>
-                    <div className="cart-header-quantity">Quantity</div>
-                    <div className="cart-header-subtotal">Subtotal</div>
-                    <div className="cart-header-actions">Actions</div>
+                    <h3 className="cart-header-item">Item</h3>
+                    <h3 className="cart-header-price">Price</h3>
+                    <h3 className="cart-header-quantity">Quantity</h3>
+                    <h3 className="cart-header-subtotal">Subtotal</h3>
+                    <h3 className="cart-header-actions">Actions</h3>
                 </div>
                 
                 <div className="cart-items-list">
                     {cart.map((item) => (
-                        <div key={item.id} className="cart-item">
+                        <article key={item.id} className="cart-item">
                             <div className="item-info">
                                 {item.img && (
                                     <img src={item.img} alt={item.name} className="item-image" />
                                 )}
                                 <div className="item-details">
-                                    <h3>{item.meal}</h3>
+                                    <h4>{item.meal}</h4>
                                 </div>
                             </div>
                             
@@ -92,16 +93,16 @@ const OrderPage: React.FC = () => {
                                     onClick={() => handleRemoveItem(item.id)}
                                     aria-label={`Remove ${item.name} from cart`}
                                 >
-                                    <i className="fa-solid fa-trash"></i>
+                                    <CiTrash />
                                 </button>
                             </div>
-                        </div>
+                        </article>
                     ))}
                 </div>
                 
                 <div className="cart-total">
-                    <div className="total-label">Total</div>
-                    <div className="total-amount">${totalAmount.toFixed(2)}</div>
+                    <h3 className="total-label">Total</h3>
+                    <p className="total-amount">${totalAmount.toFixed(2)}</p>
                 </div>
             </div>
             
@@ -118,7 +119,7 @@ const OrderPage: React.FC = () => {
                     </Link>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 

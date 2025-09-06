@@ -7,11 +7,24 @@ body.night header,
 body.night nav,
 body.night .card,
 body.night .panel,
+body.night .company-wrapper,
 body.night .menu-item,
 body.night .home-wrapper,
+body.night form,
+body.night .cart-content,
 body.night .footer {
   background: #232a36 !important;
-  color: #e0e6f0 !important;
+  color: #8c97b1 !important;
+}
+body.night .cart-header {
+  color: #8c97b1 !important;
+}
+body.night .cart-item,
+body.night .cart-header {
+  border-bottom: 1px solid #8c97b1 !important;
+}
+body.night .cart-total {
+  border-top: 1px solid #8c97b1 !important;
 }
 body.night a { color: #8ab4f8 !important; }
 body.night .counter {

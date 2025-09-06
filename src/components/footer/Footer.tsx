@@ -2,6 +2,9 @@ import React from "react";
 import FooterLinks from "../links/FooterLinks";
 import Logo from "/public/logo.svg?react";
 import linksConfig from "../__mocks__/linksConfig.js";
+import { CiTwitter } from "react-icons/ci";
+import { IoLogoInstagram } from "react-icons/io5";
+import { PiYoutubeLogo } from "react-icons/pi";
 
 const Footer: React.FC = () => {
   return (
@@ -37,13 +40,13 @@ const Footer: React.FC = () => {
           <div className="footer-media">
             <ul>
               <li>
-                <a href="/"><i className="fa-brands fa-twitter"></i></a>
+                <a href="/"><CiTwitter /></a>
               </li>
               <li>
-                <a href="/"><i className="fa-brands fa-instagram"></i></a>
+                <a href="/"><IoLogoInstagram /></a>
               </li>
               <li>
-                <a href="/"><i className="fa-brands fa-youtube"></i></a>
+                <a href="/"><PiYoutubeLogo /></a>
               </li>
             </ul>
           </div>

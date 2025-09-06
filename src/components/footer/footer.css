@@ -102,7 +102,7 @@ footer {
           color: #7E828F4D;
         }
 
-        & i {
+        & svg {
           font-size: 18px;
           width: 18px;
           height: 18px;
@@ -117,7 +117,7 @@ footer {
         background-color: #35B8BE;
         border: 1px solid #35B8BE;
 
-        & i {
+        & svg {
           color: white;
           
         }
